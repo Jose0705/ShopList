@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ShopList.Gui.Views.NewPage1"
              xmlns:viemodel="clr-namespace:ShopList.Gui.ViewModels"
+             xmlns:model="clr-namespace:ShopList.Gui.Models"
              x:DataType="viemodel:ShopListViewModels"
              Title="Lista de Compras">
     <Grid
@@ -28,6 +29,7 @@
                 Text="Producto: "/>
             <Entry
                 Grid.Column="1"
+                Text="{Binding NombreDelArticulo}"
                 FontSize="Medium"
                 Grid.Row="0"
                 BackgroundColor="Beige"
@@ -43,12 +45,14 @@
                 Grid.Column="1"
                 Grid.Row="1"
                 FontSize="Medium"
+                Text="{Binding CantidadAComprar}"
                 BackgroundColor="Beige"
             />
             <Button
                 Grid.Column="2"
                 Grid.Row="0"
                 FontSize="Medium"
+                Command="{Binding AgregarShopListItemCommand}"
                 Text="+"/>
             <Button
                 Grid.Column="2"
@@ -59,12 +63,38 @@
 
         <CollectionView
             Grid.Row="1"
+            SelectionMode="Single"
             Grid.Column="0"
-            ItemsSource="{Binding Path=Item}"
+            ItemsSource="{Binding Path=item}"
             EmptyView="Aun no se ah registrado prodctos"
             BackgroundColor="Beige">
-            
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Item">
+                    <Border>
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+
+                        <Grid
+                            BackgroundColor="Beige"
+                            Padding="8,0"
+                            ColumnDefinitions="Auto,*,Auto">
+                            <CheckBox
+                             IsChecked="{Binding Comprado}"/>
+                            <Label
+                            VerticalOptions="Center"
+                            Grid.Column="1"
+                            Text="{Binding Nombre}"/>
+                            <Label
+                            Grid.Column="2"
+                            VerticalOptions="Center"
+                            Text="{Binding Cantidad}"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
         </CollectionView>
-        
     </Grid>
 </ContentPage>
