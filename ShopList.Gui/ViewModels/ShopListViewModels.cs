@@ -2,7 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using ShopList.Gui.Models;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
+
 
 namespace ShopList.Gui.ViewModels
 {
@@ -12,6 +12,8 @@ namespace ShopList.Gui.ViewModels
         private string _nombreDelArticulo = string.Empty;
         [ObservableProperty]
         private int _cantidadAComprar = 1;
+        [ObservableProperty]
+        private Item _selectedItem;
 
         //public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -65,14 +67,35 @@ namespace ShopList.Gui.ViewModels
                 Comprado = false,
             };
             item.Add(Item);
+            SelectedItem = Item;
             NombreDelArticulo = String.Empty;
             CantidadAComprar = 1;
         }
+
         [RelayCommand]
         public void EleminarShopListItem()
         {
+            if (SelectedItem == null)
+            return;
 
+            int index = item.IndexOf(SelectedItem);
+
+            item.Remove(SelectedItem);
+
+            
+            if (item.Count > 0)
+            {
+                if (index >= item.Count)
+                index = item.Count - 1;
+
+                SelectedItem = item[index];
+            }
+            else
+                {
+                SelectedItem = null;
+            }
         }
+
         public void CargarDatos()
         {
             item.Add(new Item

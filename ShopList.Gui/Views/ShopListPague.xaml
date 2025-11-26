@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"          
              x:Class="ShopList.Gui.Views.NewPage1"
              xmlns:viemodel="clr-namespace:ShopList.Gui.ViewModels"
              xmlns:model="clr-namespace:ShopList.Gui.Models"
              x:DataType="viemodel:ShopListViewModels"
+             
              Title="Lista de Compras">
     <Grid
         Padding="8"
@@ -58,6 +59,7 @@
                 Grid.Column="2"
                 FontSize="Medium"
                 Grid.Row="1"
+                Command="{Binding EleminarShopListItemCommand}"
                 Text="x"/>
         </Grid>
 
@@ -65,7 +67,9 @@
             Grid.Row="1"
             SelectionMode="Single"
             Grid.Column="0"
-            ItemsSource="{Binding Path=item}"
+            ItemsSource="{Binding item}"
+            SelectedItem="{Binding SelectedItem}"
+            
             EmptyView="Aun no se ah registrado prodctos"
             BackgroundColor="Beige">
 
@@ -82,7 +86,7 @@
                             Padding="8,0"
                             ColumnDefinitions="Auto,*,Auto">
                             <CheckBox
-                             IsChecked="{Binding Comprado}"/>
+                            IsChecked="{Binding Comprado}"/>
                             <Label
                             VerticalOptions="Center"
                             Grid.Column="1"
@@ -91,6 +95,8 @@
                             Grid.Column="2"
                             VerticalOptions="Center"
                             Text="{Binding Cantidad}"/>
+                            
+
                         </Grid>
                     </Border>
                 </DataTemplate>
