@@ -67,7 +67,7 @@
             Grid.Row="1"
             SelectionMode="Single"
             Grid.Column="0"
-            ItemsSource="{Binding item}"
+            ItemsSource="{Binding Items}"
             SelectedItem="{Binding SelectedItem}"
             
             EmptyView="Aun no se ah registrado prodctos"
